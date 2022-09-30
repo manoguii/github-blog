@@ -1,15 +1,27 @@
-import { ProfileContainer } from './styles'
+import { ProfileContainer, ProfileContent } from './styles'
+import avatar from '../../../assets/avatar.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faArrowUpRightFromSquare,
+  faBuilding,
+  faUserGroup,
+} from '@fortawesome/free-solid-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 export function Profile() {
+  const element = <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+  const gitHub = <FontAwesomeIcon icon={faGithub} />
+  const building = <FontAwesomeIcon icon={faBuilding} />
+  const user = <FontAwesomeIcon icon={faUserGroup} />
   return (
     <ProfileContainer>
-      <img src="" alt="" />
-      <div>
+      <img src={avatar} alt="" />
+      <ProfileContent>
         <header>
           <h2>Cameron Williamson</h2>
           <a href="#">
             github
-            <span></span>
+            {element}
           </a>
         </header>
         <p>
@@ -18,13 +30,14 @@ export function Profile() {
           pulvinar vel mass.
         </p>
         <footer>
-          <span>cameronwll</span>
-          <span>Rocketseat</span>
+          <span>{gitHub}cameronwll</span>
+          <span>{building}Rocketseat</span>
           <span>
+            {user}
             <strong>32</strong> seguidores
           </span>
         </footer>
-      </div>
+      </ProfileContent>
     </ProfileContainer>
   )
 }

@@ -13,6 +13,7 @@ export const HeaderContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   img:nth-child(2) {
     align-self: baseline;
     padding-top: 2.5rem;
