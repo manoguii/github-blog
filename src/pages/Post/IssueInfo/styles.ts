@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
-export const ProfileContainer = styled.aside`
-  padding: 2rem;
+export const IssueContainer = styled.aside`
   margin-top: -5rem;
   position: relative;
 
@@ -13,20 +12,16 @@ export const ProfileContainer = styled.aside`
   gap: 2rem;
 `
 
-export const ProfileContent = styled.div`
+export const IssueContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1;
 
   header {
     display: flex;
     justify-content: space-between;
-
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: ${(props) => props.theme.Title};
-    }
+    margin: 8px;
 
     a {
       font-size: 0.75rem;
@@ -34,7 +29,8 @@ export const ProfileContent = styled.div`
       color: ${(props) => props.theme.Bue};
       text-transform: uppercase;
       text-decoration: none;
-      padding-top: 10px;
+      padding-bottom: 5px;
+      line-height: 0;
 
       display: flex;
       gap: 0.5rem;
@@ -46,10 +42,16 @@ export const ProfileContent = styled.div`
     }
   }
 
-  p {
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: ${(props) => props.theme.Title};
+    padding-top: 1.25rem;
   }
 
   footer {
+    padding-top: 0.5rem;
+
     display: flex;
     gap: 1.5rem;
     color: ${(props) => props.theme.Subtitle};

@@ -30,6 +30,7 @@ export const FormContainer = styled.form`
     border: 1px solid ${(props) => props.theme.Border};
     border-radius: 6px;
     margin-top: 0.75rem;
+    color: ${(props) => props.theme.Text};
 
     &::placeholder {
       color: ${(props) => props.theme.Label};

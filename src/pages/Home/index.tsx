@@ -1,5 +1,5 @@
 import { InputForm } from './InputForm'
-import { Post } from './Post'
+import { Issue } from './Issue'
 import { Profile } from './Profile'
 import { HomeContainer, Main } from './styles'
 
@@ -9,10 +9,10 @@ export function Home() {
       <Profile />
       <InputForm />
       <Main>
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+        <Issue />
+        <Issue />
+        <Issue />
+        <Issue />
       </Main>
     </HomeContainer>
   )

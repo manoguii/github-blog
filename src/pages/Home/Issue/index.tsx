@@ -1,10 +1,15 @@
-import { PostContainer } from './styles'
+import { NavLink } from 'react-router-dom'
+import { Container } from './styles'
 
-export function Post() {
+export function Issue() {
   return (
-    <PostContainer>
+    <Container>
       <header>
-        <h3>JavaScript data types and data structures</h3>
+        <h3>
+          <NavLink to={'/post'}>
+            JavaScript data types and data structures
+          </NavLink>
+        </h3>
         <div>
           <span>Há 1 dia</span>
         </div>
@@ -14,6 +19,6 @@ export function Post() {
         differ from one language to another. This article attempts to list the
         built-in data structures available in
       </section>
-    </PostContainer>
+    </Container>
   )
 }

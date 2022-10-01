@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const PostContainer = styled.article`
+export const Container = styled.article`
   display: flex;
   flex-direction: column;
   max-width: 26rem;
@@ -15,11 +15,13 @@ export const PostContainer = styled.article`
     justify-content: space-between;
     gap: 1rem;
 
-    h3 {
+    h3,
+    a {
       font-size: 1.25rem;
       font-weight: 700;
       color: ${(props) => props.theme.Title};
       max-width: 17.6rem;
+      text-decoration: none;
     }
 
     span {
