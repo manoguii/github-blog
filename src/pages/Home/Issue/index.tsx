@@ -6,7 +6,6 @@ import { Container } from './styles'
 
 export function Issue() {
   const { issues } = useContext(BlogContext)
-  // console.log(issues)
 
   return (
     <>

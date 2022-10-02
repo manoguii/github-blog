@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
-import axios from 'axios'
+import { api } from '../lib/axios'
 
 interface ContextProp {
   children: ReactNode
@@ -34,31 +34,26 @@ export function BlogContextContainer({ children }: ContextProp) {
   const [issues, setIssues] = useState<IssuesTypes[]>([])
 
   async function fetchProfile() {
-    const user = await axios
-      .get('https://api.github.com/users/daltonmenezes')
-      .then((response) => {
-        return response.data
-      })
+    const user = await api.get('/users/daltonmenezes').then((response) => {
+      return response.data
+    })
 
     setProfile([user])
   }
 
   async function issueRepository() {
-    const search = await axios
-      .get(
-        'https://api.github.com/search/issues?q=repo:daltonmenezes/netflix-list-exporter',
-      )
+    const search = await api
+      .get('/search/issues?q=repo:daltonmenezes/netflix-list-exporter')
       .then((res) => {
-        return res.data.items
+        return res.data
       })
 
-    setIssues(search)
+    setIssues(search.items)
   }
 
   useEffect(() => {
     fetchProfile()
     issueRepository()
-    // console.log(issues)
   }, [])
 
   return (
