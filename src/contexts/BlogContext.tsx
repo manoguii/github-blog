@@ -25,6 +25,7 @@ interface IssuesTypes {
 interface ContextTypes {
   profile: ProfileTypes[]
   issues: IssuesTypes[]
+  searchIssue: (query: string) => Promise<void>
 }
 
 export const BlogContext = createContext({} as ContextTypes)
@@ -41,19 +42,25 @@ export function BlogContextContainer({ children }: ContextProp) {
     setProfile([user])
   }
 
-  async function issueRepository() {
-    const search = await api
-      .get('/search/issues?q=repo:daltonmenezes/netflix-list-exporter')
-      .then((res) => {
-        return res.data
-      })
+  async function searchIssue(query?: string) {
+    const search = await api.get('/search/issues', {
+      params: {
+        q: query + ' repo:daltonmenezes/netflix-list-exporter',
+      },
+    })
+    setIssues(search.data.items)
+  }
 
-    setIssues(search.items)
+  async function IssuesRepo() {
+    const fetchIssues = await api
+      .get('/search/issues?q=repo:daltonmenezes/netflix-list-exporter')
+      .then((response) => response.data.items)
+    setIssues(fetchIssues)
   }
 
   useEffect(() => {
     fetchProfile()
-    issueRepository()
+    IssuesRepo()
   }, [])
 
   return (
@@ -61,6 +68,7 @@ export function BlogContextContainer({ children }: ContextProp) {
       value={{
         profile,
         issues,
+        searchIssue,
       }}
     >
       {children}

@@ -2,6 +2,8 @@ import { FormContainer } from './styles'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+import { useContext } from 'react'
+import { BlogContext } from '../../../contexts/BlogContext'
 
 const searchForm = z.object({
   search: z.string(),
@@ -10,13 +12,18 @@ const searchForm = z.object({
 type SearchFormInput = z.infer<typeof searchForm>
 
 export function InputForm() {
-  const { register, watch } = useForm<SearchFormInput>({
+  const { searchIssue } = useContext(BlogContext)
+  const { register, handleSubmit, watch } = useForm<SearchFormInput>({
     resolver: zodResolver(searchForm),
   })
 
+  async function handleSearchIssue(data: SearchFormInput) {
+    searchIssue(data.search)
+  }
+
   watch('search')
   return (
-    <FormContainer>
+    <FormContainer onSubmit={handleSubmit(handleSearchIssue)}>
       <header>
         <h4>Publicações</h4>
         <span>
