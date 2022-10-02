@@ -1,31 +1,32 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { BlogContext } from '../../../contexts/BlogContext'
+import { dateFormatter } from '../../../utils/formatter'
 import { Container } from './styles'
 
 export function Issue() {
   const { issues } = useContext(BlogContext)
+  // console.log(issues)
 
   return (
     <>
       {issues.map((post) => {
+        const LIMIT = 185
+        const text = post.body
+        const aboveLimit = text.length > LIMIT
+        const dotsOrEmpty = aboveLimit ? ' ...' : ''
+        const result = text.substring(0, LIMIT) + dotsOrEmpty
         return (
-          <Container key={post.items.id}>
+          <Container key={post.id}>
             <header>
               <h3>
-                <NavLink to={'/post'}>
-                  JavaScript data types and data structures
-                </NavLink>
+                <NavLink to={'/post'}>{post.title}</NavLink>
               </h3>
               <div>
-                <span>Há 1 dia</span>
+                <span>{dateFormatter.format(new Date(post.created_at))}</span>
               </div>
             </header>
-            <section>
-              Programming languages all have built-in data structures, but these
-              often differ from one language to another. This article attempts
-              to list the built-in data structures available in
-            </section>
+            <section>{result}</section>
           </Container>
         )
       })}

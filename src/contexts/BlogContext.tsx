@@ -15,15 +15,23 @@ interface ProfileTypes {
   company: string
 }
 
+interface IssuesTypes {
+  created_at: string
+  id: number
+  title: string
+  body: string
+}
+
 interface ContextTypes {
   profile: ProfileTypes[]
+  issues: IssuesTypes[]
 }
 
 export const BlogContext = createContext({} as ContextTypes)
 
 export function BlogContextContainer({ children }: ContextProp) {
   const [profile, setProfile] = useState<ProfileTypes[]>([])
-  const [issues, setIssues] = useState([])
+  const [issues, setIssues] = useState<IssuesTypes[]>([])
 
   async function fetchProfile() {
     const user = await axios
@@ -41,7 +49,7 @@ export function BlogContextContainer({ children }: ContextProp) {
         'https://api.github.com/search/issues?q=repo:daltonmenezes/netflix-list-exporter',
       )
       .then((res) => {
-        return console.log(res.data)
+        return res.data.items
       })
 
     setIssues(search)
@@ -50,6 +58,7 @@ export function BlogContextContainer({ children }: ContextProp) {
   useEffect(() => {
     fetchProfile()
     issueRepository()
+    // console.log(issues)
   }, [])
 
   return (
