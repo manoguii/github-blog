@@ -6,24 +6,11 @@ import {
   faUserGroup,
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { useEffect, useState } from 'react'
-import { ProfileTypes } from '../../../contexts/BlogContext'
-import { api } from '../../../lib/axios'
+import { useContext } from 'react'
+import { BlogContext } from '../../../contexts/BlogContext'
 
 export function Profile() {
-  const [profile, setProfile] = useState<ProfileTypes[]>([])
-
-  async function fetchProfile() {
-    const user = await api.get('/users/manoguii').then((response) => {
-      return response.data
-    })
-
-    setProfile([user])
-  }
-
-  useEffect(() => {
-    fetchProfile()
-  }, [])
+  const { profile } = useContext(BlogContext)
 
   const element = <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
   const gitHub = <FontAwesomeIcon icon={faGithub} />

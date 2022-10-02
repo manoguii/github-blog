@@ -10,9 +10,6 @@ export function Home() {
       <InputForm />
       <Main>
         <Issue />
-        <Issue />
-        <Issue />
-        <Issue />
       </Main>
     </HomeContainer>
   )

@@ -27,9 +27,13 @@ interface IssuesTypes {
   id: number
   title: string
   body: string
+  number: number
+  comments: string
+  login: string
 }
 
 interface ContextTypes {
+  profile: ProfileTypes[]
   issues: IssuesTypes[]
   searchIssue: (query: string) => Promise<void>
 }
@@ -41,6 +45,7 @@ const repoName = 'github-blog'
 
 export function BlogContextContainer({ children }: ContextProp) {
   const [issues, setIssues] = useState<IssuesTypes[]>([])
+  const [profile, setProfile] = useState<ProfileTypes[]>([])
 
   const searchIssue = useCallback(async (query?: string) => {
     const search = await api.get('/search/issues', {
@@ -51,20 +56,30 @@ export function BlogContextContainer({ children }: ContextProp) {
     setIssues(search.data.items)
   }, [])
 
-  async function IssuesRepo() {
-    const fetchIssues = await api
-      .get(`/search/issues?q=repo:${user}/${repoName}`)
-      .then((response) => response.data.items)
-    setIssues(fetchIssues)
-  }
+  const IssuesRepo = useCallback(async () => {
+    const fetchIssues = await api.get(
+      `/search/issues?q=repo:${user}/${repoName}`,
+    )
 
-  useEffect(() => {
-    IssuesRepo()
+    setIssues(fetchIssues.data.items)
   }, [])
+
+  async function fetchProfile() {
+    const user = await api.get('/users/manoguii').then((response) => {
+      return response.data
+    })
+
+    setProfile([user])
+  }
+  useEffect(() => {
+    fetchProfile()
+    IssuesRepo()
+  }, [IssuesRepo])
 
   return (
     <BlogContext.Provider
       value={{
+        profile,
         issues,
         searchIssue,
       }}
