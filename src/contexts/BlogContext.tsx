@@ -1,11 +1,17 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 import { api } from '../lib/axios'
 
 interface ContextProp {
   children: ReactNode
 }
 
-interface ProfileTypes {
+export interface ProfileTypes {
   avatar_url: string
   bio: string
   id: number
@@ -13,6 +19,7 @@ interface ProfileTypes {
   name: string
   login: string
   company: string
+  html_url: string
 }
 
 interface IssuesTypes {
@@ -23,50 +30,41 @@ interface IssuesTypes {
 }
 
 interface ContextTypes {
-  profile: ProfileTypes[]
   issues: IssuesTypes[]
   searchIssue: (query: string) => Promise<void>
 }
 
 export const BlogContext = createContext({} as ContextTypes)
 
+const user = 'manoguii'
+const repoName = 'github-blog'
+
 export function BlogContextContainer({ children }: ContextProp) {
-  const [profile, setProfile] = useState<ProfileTypes[]>([])
   const [issues, setIssues] = useState<IssuesTypes[]>([])
 
-  async function fetchProfile() {
-    const user = await api.get('/users/daltonmenezes').then((response) => {
-      return response.data
-    })
-
-    setProfile([user])
-  }
-
-  async function searchIssue(query?: string) {
+  const searchIssue = useCallback(async (query?: string) => {
     const search = await api.get('/search/issues', {
       params: {
-        q: query + ' repo:daltonmenezes/netflix-list-exporter',
+        q: query + `repo:${user}/${repoName}`,
       },
     })
     setIssues(search.data.items)
-  }
+  }, [])
 
   async function IssuesRepo() {
     const fetchIssues = await api
-      .get('/search/issues?q=repo:daltonmenezes/netflix-list-exporter')
+      .get(`/search/issues?q=repo:${user}/${repoName}`)
       .then((response) => response.data.items)
     setIssues(fetchIssues)
   }
 
   useEffect(() => {
-    fetchProfile()
     IssuesRepo()
   }, [])
 
   return (
     <BlogContext.Provider
       value={{
-        profile,
         issues,
         searchIssue,
       }}
