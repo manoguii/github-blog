@@ -1,5 +1,4 @@
 import { ProfileContainer, ProfileContent } from './styles'
-import avatar from '../../../assets/avatar.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faArrowUpRightFromSquare,
@@ -7,37 +6,50 @@ import {
   faUserGroup,
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { useContext } from 'react'
+import { BlogContext } from '../../../contexts/BlogContext'
 
 export function Profile() {
+  const { profile } = useContext(BlogContext)
+
   const element = <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
   const gitHub = <FontAwesomeIcon icon={faGithub} />
   const building = <FontAwesomeIcon icon={faBuilding} />
   const user = <FontAwesomeIcon icon={faUserGroup} />
+
   return (
-    <ProfileContainer>
-      <img src={avatar} alt="" />
-      <ProfileContent>
-        <header>
-          <h2>Cameron Williamson</h2>
-          <a href="#">
-            github
-            {element}
-          </a>
-        </header>
-        <p>
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </p>
-        <footer>
-          <span>{gitHub}cameronwll</span>
-          <span>{building}Rocketseat</span>
-          <span>
-            {user}
-            <strong>32</strong> seguidores
-          </span>
-        </footer>
-      </ProfileContent>
-    </ProfileContainer>
+    <>
+      {profile.map((profileUser) => {
+        return (
+          <ProfileContainer key={profileUser.id}>
+            <img src={profileUser.avatar_url} alt="" />
+            <ProfileContent>
+              <header>
+                <h2>{profileUser.name}</h2>
+                <a href="#">
+                  github
+                  {element}
+                </a>
+              </header>
+              <p>{profileUser.bio}</p>
+              <footer>
+                <span>
+                  {gitHub}
+                  {profileUser.login}
+                </span>
+                <span>
+                  {building}
+                  {profileUser.company}
+                </span>
+                <span>
+                  {user}
+                  <strong>{profileUser.followers}</strong> seguidores
+                </span>
+              </footer>
+            </ProfileContent>
+          </ProfileContainer>
+        )
+      })}
+    </>
   )
 }

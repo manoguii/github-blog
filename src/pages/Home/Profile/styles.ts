@@ -11,12 +11,19 @@ export const ProfileContainer = styled.aside`
 
   display: flex;
   gap: 2rem;
+
+  img {
+    width: 148px;
+    height: 148px;
+    border-radius: 8px;
+  }
 `
 
 export const ProfileContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1;
 
   header {
     display: flex;
