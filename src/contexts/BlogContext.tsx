@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react'
+// import { useParams } from 'react-router-dom'
 import { api } from '../lib/axios'
 
 interface ContextProp {
@@ -22,7 +23,7 @@ export interface ProfileTypes {
   html_url: string
 }
 
-interface IssuesTypes {
+export interface IssuesTypes {
   created_at: string
   id: number
   title: string
@@ -35,12 +36,13 @@ interface IssuesTypes {
 interface ContextTypes {
   profile: ProfileTypes[]
   issues: IssuesTypes[]
+  // issuesNumber: IssuesTypes
   searchIssue: (query: string) => Promise<void>
 }
 
 export const BlogContext = createContext({} as ContextTypes)
 
-const user = 'manoguii'
+const userProfile = 'manoguii'
 const repoName = 'github-blog'
 
 export function BlogContextContainer({ children }: ContextProp) {
@@ -50,7 +52,7 @@ export function BlogContextContainer({ children }: ContextProp) {
   const searchIssue = useCallback(async (query?: string) => {
     const search = await api.get('/search/issues', {
       params: {
-        q: query + `repo:${user}/${repoName}`,
+        q: query + `repo:${userProfile}/${repoName}`,
       },
     })
     setIssues(search.data.items)
@@ -58,22 +60,24 @@ export function BlogContextContainer({ children }: ContextProp) {
 
   const IssuesRepo = useCallback(async () => {
     const fetchIssues = await api.get(
-      `/search/issues?q=repo:${user}/${repoName}`,
+      `/search/issues?q=repo:${userProfile}/${repoName}`,
     )
 
     setIssues(fetchIssues.data.items)
   }, [])
 
   async function fetchProfile() {
-    const user = await api.get('/users/manoguii').then((response) => {
+    const user = await api.get(`/users/${userProfile}`).then((response) => {
       return response.data
     })
 
     setProfile([user])
   }
+
   useEffect(() => {
     fetchProfile()
     IssuesRepo()
+    // detailsIsuue()
   }, [IssuesRepo])
 
   return (
@@ -82,6 +86,7 @@ export function BlogContextContainer({ children }: ContextProp) {
         profile,
         issues,
         searchIssue,
+        // issuesNumber,
       }}
     >
       {children}
