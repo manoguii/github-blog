@@ -1,12 +1,11 @@
 import { useContext } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { BlogContext } from '../../../contexts/BlogContext'
 import { dateFormatter } from '../../../utils/formatter'
 import { Container } from './styles'
 
 export function Issue() {
   const { issues } = useContext(BlogContext)
-  const { number } = useParams()
 
   return (
     <>
@@ -16,11 +15,12 @@ export function Issue() {
         const aboveLimit = text.length > LIMIT
         const dotsOrEmpty = aboveLimit ? ' ...' : ''
         const result = text.substring(0, LIMIT) + dotsOrEmpty
+
         return (
           <Container key={post.id}>
             <header>
               <h3>
-                <NavLink to={`/post/${number}`}>{post.title}</NavLink>
+                <NavLink to={`/post/${post.number}`}>{post.title}</NavLink>
               </h3>
               <div>
                 <span>{dateFormatter.format(new Date(post.created_at))}</span>

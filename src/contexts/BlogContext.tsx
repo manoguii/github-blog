@@ -5,7 +5,6 @@ import {
   useEffect,
   useState,
 } from 'react'
-// import { useParams } from 'react-router-dom'
 import { api } from '../lib/axios'
 
 interface ContextProp {
@@ -31,12 +30,15 @@ export interface IssuesTypes {
   number: number
   comments: string
   login: string
+  html_url?: string
+  user?: {
+    login?: string
+  }
 }
 
 interface ContextTypes {
   profile: ProfileTypes[]
   issues: IssuesTypes[]
-  // issuesNumber: IssuesTypes
   searchIssue: (query: string) => Promise<void>
 }
 
@@ -77,7 +79,6 @@ export function BlogContextContainer({ children }: ContextProp) {
   useEffect(() => {
     fetchProfile()
     IssuesRepo()
-    // detailsIsuue()
   }, [IssuesRepo])
 
   return (
@@ -86,7 +87,6 @@ export function BlogContextContainer({ children }: ContextProp) {
         profile,
         issues,
         searchIssue,
-        // issuesNumber,
       }}
     >
       {children}

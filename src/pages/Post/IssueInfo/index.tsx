@@ -11,31 +11,27 @@ import { NavLink, useParams } from 'react-router-dom'
 import { IssuesTypes } from '../../../contexts/BlogContext'
 import { useCallback, useEffect, useState } from 'react'
 import { api } from '../../../lib/axios'
+// import { dateFormatter } from '../../../utils/formatter'
 
 export function IssueInfo() {
-  // const { issuesNumber } = useContext(BlogContext)
-
   const element = <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
   const gitHub = <FontAwesomeIcon icon={faGithub} />
   const calendar = <FontAwesomeIcon icon={faCalendarDay} />
   const user = <FontAwesomeIcon icon={faComment} />
-  const voltar = <FontAwesomeIcon icon={faChevronLeft} />
+  const chevronLeft = <FontAwesomeIcon icon={faChevronLeft} />
 
   const userProfile = 'manoguii'
   const repoName = 'github-blog'
 
-  const [issuesNumber, setIssuesNumber] = useState<IssuesTypes>(
-    {} as IssuesTypes,
-  )
-  const { id } = useParams()
+  const [issuesInfo, setIssuesInfo] = useState<IssuesTypes>({} as IssuesTypes)
+  const { number } = useParams()
 
   const detailsIsuue = useCallback(async () => {
-    const fetchIssues = await api.get(
-      `/repos/${userProfile}/${repoName}/issues/${id}`,
+    const fetchIssueInfo = await api.get(
+      `repos/${userProfile}/${repoName}/issues/${number}`,
     )
-    console.log(fetchIssues)
-    setIssuesNumber(fetchIssues.data)
-  }, [id])
+    setIssuesInfo(fetchIssueInfo.data)
+  }, [number])
 
   useEffect(() => {
     detailsIsuue()
@@ -45,19 +41,25 @@ export function IssueInfo() {
     <IssueContainer>
       <IssueContent>
         <header>
-          <NavLink to="/">{voltar}voltar</NavLink>
-          <a href="#">
+          <NavLink to="/">{chevronLeft}voltar</NavLink>
+          <a href={issuesInfo.html_url}>
             ver no github
             {element}
           </a>
         </header>
-        <h2>{issuesNumber.title}</h2>
+        <h2>{issuesInfo.title}</h2>
         <footer>
-          <span>{gitHub}cameronwll</span>
-          <span>{calendar}Há 1 dia</span>
+          <span>
+            {gitHub}
+            {issuesInfo.user?.login}
+          </span>
+          <span>
+            {calendar}
+            {issuesInfo.created_at}
+          </span>
           <span>
             {user}
-            <strong>5</strong> comentários
+            <strong>{issuesInfo.comments}</strong> comentários
           </span>
         </footer>
       </IssueContent>
