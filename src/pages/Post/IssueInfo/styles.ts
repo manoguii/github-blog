@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const IssueContainer = styled.aside`
   margin-top: -5rem;
   position: relative;
+  padding: 2rem;
 
   background: ${(props) => props.theme.Profile};
   box-shadow: 0px 2px 28px rgba(0, 0, 0, 0.2);

@@ -44,8 +44,8 @@ interface ContextTypes {
 
 export const BlogContext = createContext({} as ContextTypes)
 
-const userProfile = 'manoguii'
-const repoName = 'github-blog'
+const userProfile = 'GBDev13'
+const repoName = 'blog-posts'
 
 export function BlogContextContainer({ children }: ContextProp) {
   const [issues, setIssues] = useState<IssuesTypes[]>([])
