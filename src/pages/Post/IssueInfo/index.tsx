@@ -11,7 +11,12 @@ import { NavLink, useParams } from 'react-router-dom'
 import { IssuesTypes } from '../../../contexts/BlogContext'
 import { useCallback, useEffect, useState } from 'react'
 import { api } from '../../../lib/axios'
+import { ContentIssue } from '../ContentIssue'
 // import { dateFormatter } from '../../../utils/formatter'
+
+export interface ContentProps {
+  issuesInfo: IssuesTypes
+}
 
 export function IssueInfo() {
   const element = <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
@@ -38,31 +43,36 @@ export function IssueInfo() {
   }, [detailsIsuue])
 
   return (
-    <IssueContainer>
-      <IssueContent>
-        <header>
-          <NavLink to="/">{chevronLeft}voltar</NavLink>
-          <a href={issuesInfo.html_url}>
-            ver no github
-            {element}
-          </a>
-        </header>
-        <h2>{issuesInfo.title}</h2>
-        <footer>
-          <span>
-            {gitHub}
-            {issuesInfo.user?.login}
-          </span>
-          <span>
-            {calendar}
-            {issuesInfo.created_at}
-          </span>
-          <span>
-            {user}
-            <strong>{issuesInfo.comments}</strong> comentários
-          </span>
-        </footer>
-      </IssueContent>
-    </IssueContainer>
+    <>
+      <IssueContainer>
+        <IssueContent>
+          <header>
+            <NavLink to="/">{chevronLeft}voltar</NavLink>
+            <a href={issuesInfo.html_url}>
+              ver no github
+              {element}
+            </a>
+          </header>
+          <h2>{issuesInfo.title}</h2>
+          <footer>
+            <span>
+              {gitHub}
+              {issuesInfo.user?.login}
+            </span>
+            <span>
+              {calendar}
+              {issuesInfo.created_at}
+            </span>
+            <span>
+              {user}
+              <strong>{issuesInfo.comments}</strong> comentários
+            </span>
+          </footer>
+        </IssueContent>
+      </IssueContainer>
+      <div>
+        <ContentIssue issuesInfo={issuesInfo} />
+      </div>
+    </>
   )
 }
