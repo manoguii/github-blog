@@ -30,8 +30,6 @@ export const IssueContent = styled.div`
       color: ${(props) => props.theme.Bue};
       text-transform: uppercase;
       text-decoration: none;
-      padding-bottom: 5px;
-      line-height: 0;
 
       display: flex;
       gap: 0.5rem;
@@ -63,6 +61,7 @@ export const IssueContent = styled.div`
       display: flex;
       gap: 0.5rem;
       align-items: center;
+      color: ${(props) => props.theme.Span};
     }
   }
 `
