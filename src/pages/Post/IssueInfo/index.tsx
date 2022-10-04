@@ -9,7 +9,6 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { IssueContainer, IssueContent } from './styles'
 import { NavLink } from 'react-router-dom'
 import { ContentProps } from '..'
-// import { dateFormatter } from '../../../utils/formatter'
 
 export function IssueInfo({ issuesInfo }: ContentProps) {
   const element = <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
@@ -36,7 +35,7 @@ export function IssueInfo({ issuesInfo }: ContentProps) {
           </span>
           <span>
             {calendar}
-            {issuesInfo.created_at}
+            {issuesInfo.newDate}
           </span>
           <span>
             {user}

@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import ReactMarkdown from 'react-markdown'
 import { NavLink } from 'react-router-dom'
 import { BlogContext } from '../../../contexts/BlogContext'
 import { dateFormatter } from '../../../utils/formatter'
@@ -14,7 +15,7 @@ export function Issue() {
         const text = post.body
         const aboveLimit = text.length > LIMIT
         const dotsOrEmpty = aboveLimit ? ' ...' : ''
-        const result = text.substring(0, LIMIT) + dotsOrEmpty
+        const content = text.substring(0, LIMIT) + dotsOrEmpty
 
         return (
           <Container key={post.id}>
@@ -26,7 +27,7 @@ export function Issue() {
                 <span>{dateFormatter.format(new Date(post.created_at))}</span>
               </div>
             </header>
-            <section>{result}</section>
+            <section>{<ReactMarkdown>{content}</ReactMarkdown>}</section>
           </Container>
         )
       })}

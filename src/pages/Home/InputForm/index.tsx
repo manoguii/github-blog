@@ -12,6 +12,8 @@ const searchForm = z.object({
 type SearchFormInput = z.infer<typeof searchForm>
 
 export function InputForm() {
+  const { issues } = useContext(BlogContext)
+
   const { searchIssue } = useContext(BlogContext)
   const { register, handleSubmit, watch } = useForm<SearchFormInput>({
     resolver: zodResolver(searchForm),
@@ -21,13 +23,15 @@ export function InputForm() {
     searchIssue(data.search)
   }
 
+  const quantityIssues = issues.length
+
   watch('search')
   return (
     <FormContainer onSubmit={handleSubmit(handleSearchIssue)}>
       <header>
         <h4>Publicações</h4>
         <span>
-          <strong>6</strong> publicações
+          <strong>{quantityIssues}</strong> publicações
         </span>
       </header>
       <input

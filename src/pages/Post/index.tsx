@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { IssuesTypes } from '../../contexts/BlogContext'
 import { api } from '../../lib/axios'
+import { dateFormatter } from '../../utils/formatter'
 import { ContentIssue } from './ContentIssue'
 import { IssueInfo } from './IssueInfo'
 import { PostContainer } from './styles'
@@ -21,7 +22,11 @@ export function Post() {
     const fetchIssueInfo = await api.get(
       `repos/${userProfile}/${repoName}/issues/${number}`,
     )
-    setIssuesInfo(fetchIssueInfo.data)
+    const newObj = {
+      ...fetchIssueInfo.data,
+      newDate: dateFormatter.format(new Date(fetchIssueInfo.data.created_at)),
+    }
+    setIssuesInfo(newObj)
   }, [number])
 
   useEffect(() => {

@@ -34,6 +34,7 @@ export interface IssuesTypes {
   user?: {
     login?: string
   }
+  newDate?: string
 }
 
 interface ContextTypes {

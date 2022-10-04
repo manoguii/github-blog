@@ -8,6 +8,7 @@ export function ContentIssue({ issuesInfo }: ContentProps) {
   return (
     <IssueContainer>
       <ReactMarkdown
+        // eslint-disable-next-line react/no-children-prop
         children={issuesInfo.body}
         components={{
           code({ node, inline, className, children, ...props }) {
