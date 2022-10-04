@@ -37,10 +37,12 @@ export function Profile() {
                   {gitHub}
                   {profileUser.login}
                 </span>
-                <span>
-                  {building}
-                  {profileUser.company}
-                </span>
+                {profileUser.company !== null ? (
+                  <span>
+                    {building}
+                    {profileUser.company}
+                  </span>
+                ) : null}
                 <span>
                   {user}
                   <strong>{profileUser.followers}</strong> seguidores

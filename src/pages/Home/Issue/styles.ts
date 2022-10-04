@@ -18,6 +18,7 @@ export const Container = styled.article`
     text-decoration: none;
     outline: none;
     box-shadow: 0 0 0 0;
+    color: ${(props) => props.theme.Bue};
   }
 
   header {
@@ -30,7 +31,7 @@ export const Container = styled.article`
       font-size: 1.25rem;
       font-weight: 700;
       color: ${(props) => props.theme.Title};
-      max-width: 16rem;
+      flex: 1;
       contain: content;
     }
 

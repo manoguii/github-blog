@@ -12,8 +12,8 @@ export interface ContentProps {
 }
 
 export function Post() {
-  const userProfile = 'react-boilerplate'
-  const repoName = 'react-boilerplate'
+  const userProfile = 'manoguii'
+  const repoName = 'github-blog'
 
   const [issuesInfo, setIssuesInfo] = useState<IssuesTypes>({} as IssuesTypes)
   const { number } = useParams()
@@ -22,6 +22,7 @@ export function Post() {
     const fetchIssueInfo = await api.get(
       `repos/${userProfile}/${repoName}/issues/${number}`,
     )
+    console.log(fetchIssueInfo)
     const newObj = {
       ...fetchIssueInfo.data,
       newDate: dateFormatter.format(new Date(fetchIssueInfo.data.created_at)),

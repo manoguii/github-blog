@@ -8,8 +8,9 @@ export const IssueContainer = styled.div`
   max-width: 100%;
 
   a {
-    color: ${(props) => props.theme.Span};
+    color: ${(props) => props.theme.Bue};
     text-decoration: none;
+    opacity: 0.8;
   }
 
   img {
@@ -21,6 +22,7 @@ export const IssueContainer = styled.div`
   h3,
   h4 {
     color: ${(props) => props.theme.Bue};
+    font-weight: normal;
   }
 
   ul {
