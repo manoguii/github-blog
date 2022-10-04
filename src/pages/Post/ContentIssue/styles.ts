@@ -5,6 +5,7 @@ export const IssueContainer = styled.div`
   flex-direction: column;
   padding: 2rem 2rem;
   gap: 1rem;
+  max-width: 100%;
 
   a {
     color: ${(props) => props.theme.Span};

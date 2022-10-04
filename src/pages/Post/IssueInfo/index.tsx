@@ -9,8 +9,11 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { IssueContainer, IssueContent } from './styles'
 import { NavLink } from 'react-router-dom'
 import { ContentProps } from '..'
+import { BlogContext } from '../../../contexts/BlogContext'
+import { useContext } from 'react'
 
 export function IssueInfo({ issuesInfo }: ContentProps) {
+  const { formatterDate } = useContext(BlogContext)
   const element = <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
   const gitHub = <FontAwesomeIcon icon={faGithub} />
   const calendar = <FontAwesomeIcon icon={faCalendarDay} />
@@ -35,7 +38,7 @@ export function IssueInfo({ issuesInfo }: ContentProps) {
           </span>
           <span>
             {calendar}
-            {issuesInfo.newDate}
+            {`Há ${formatterDate(issuesInfo.created_at)}`}
           </span>
           <span>
             {user}

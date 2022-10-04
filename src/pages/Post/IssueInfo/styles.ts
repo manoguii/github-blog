@@ -36,6 +36,8 @@ export const IssueContent = styled.div`
       display: flex;
       gap: 0.5rem;
       align-items: center;
+      border-bottom: 1px solid transparent;
+      box-shadow: 0 0 0 0;
 
       &:hover {
         border-bottom: 1px solid ${(props) => props.theme.Bue};

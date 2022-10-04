@@ -2,11 +2,10 @@ import { useContext } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { NavLink } from 'react-router-dom'
 import { BlogContext } from '../../../contexts/BlogContext'
-import { dateFormatter } from '../../../utils/formatter'
 import { Container } from './styles'
 
 export function Issue() {
-  const { issues } = useContext(BlogContext)
+  const { issues, formatterDate } = useContext(BlogContext)
 
   return (
     <>
@@ -19,15 +18,15 @@ export function Issue() {
 
         return (
           <Container key={post.id}>
-            <header>
-              <h3>
-                <NavLink to={`/post/${post.number}`}>{post.title}</NavLink>
-              </h3>
-              <div>
-                <span>{dateFormatter.format(new Date(post.created_at))}</span>
-              </div>
-            </header>
-            <section>{<ReactMarkdown>{content}</ReactMarkdown>}</section>
+            <NavLink to={`/post/${post.number}`}>
+              <header>
+                <h3>{post.title}</h3>
+                <div>
+                  <span>{`Há ${formatterDate(post.created_at)}`}</span>
+                </div>
+              </header>
+              <section>{<ReactMarkdown>{content}</ReactMarkdown>}</section>
+            </NavLink>
           </Container>
         )
       })}

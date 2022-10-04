@@ -6,6 +6,7 @@ import {
   useState,
 } from 'react'
 import { api } from '../lib/axios'
+import moment from 'moment'
 
 interface ContextProp {
   children: ReactNode
@@ -41,16 +42,21 @@ interface ContextTypes {
   profile: ProfileTypes[]
   issues: IssuesTypes[]
   searchIssue: (query: string) => Promise<void>
+  formatterDate: (date: string) => string
 }
 
 export const BlogContext = createContext({} as ContextTypes)
 
-const userProfile = 'GBDev13'
-const repoName = 'blog-posts'
+const userProfile = 'react-boilerplate'
+const repoName = 'react-boilerplate'
 
 export function BlogContextContainer({ children }: ContextProp) {
   const [issues, setIssues] = useState<IssuesTypes[]>([])
   const [profile, setProfile] = useState<ProfileTypes[]>([])
+
+  function formatterDate(date: string) {
+    return moment(date).toNow(true)
+  }
 
   const searchIssue = useCallback(async (query?: string) => {
     const search = await api.get('/search/issues', {
@@ -88,6 +94,7 @@ export function BlogContextContainer({ children }: ContextProp) {
         profile,
         issues,
         searchIssue,
+        formatterDate,
       }}
     >
       {children}

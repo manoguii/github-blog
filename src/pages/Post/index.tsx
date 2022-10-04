@@ -12,8 +12,8 @@ export interface ContentProps {
 }
 
 export function Post() {
-  const userProfile = 'GBDev13'
-  const repoName = 'blog-posts'
+  const userProfile = 'react-boilerplate'
+  const repoName = 'react-boilerplate'
 
   const [issuesInfo, setIssuesInfo] = useState<IssuesTypes>({} as IssuesTypes)
   const { number } = useParams()
