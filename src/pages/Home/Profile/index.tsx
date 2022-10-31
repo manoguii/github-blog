@@ -12,11 +12,6 @@ import { BlogContext } from '../../../contexts/BlogContext'
 export function Profile() {
   const { profile } = useContext(BlogContext)
 
-  const element = <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-  const gitHub = <FontAwesomeIcon icon={faGithub} />
-  const building = <FontAwesomeIcon icon={faBuilding} />
-  const user = <FontAwesomeIcon icon={faUserGroup} />
-
   return (
     <>
       {profile.map((profileUser) => {
@@ -28,23 +23,23 @@ export function Profile() {
                 <h2>{profileUser.name}</h2>
                 <a href={profileUser.html_url}>
                   github
-                  {element}
+                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
                 </a>
               </header>
               <p>{profileUser.bio}</p>
               <footer>
                 <span>
-                  {gitHub}
+                  <FontAwesomeIcon icon={faGithub} />
                   {profileUser.login}
                 </span>
                 {profileUser.company !== null ? (
                   <span>
-                    {building}
+                    <FontAwesomeIcon icon={faBuilding} />
                     {profileUser.company}
                   </span>
                 ) : null}
                 <span>
-                  {user}
+                  <FontAwesomeIcon icon={faUserGroup} />
                   <strong>{profileUser.followers}</strong> seguidores
                 </span>
               </footer>
