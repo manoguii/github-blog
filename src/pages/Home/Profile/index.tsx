@@ -6,11 +6,35 @@ import {
   faUserGroup,
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { useContext } from 'react'
-import { BlogContext } from '../../../contexts/BlogContext'
+import { api } from '../../../lib/axios'
+import { useEffect, useState } from 'react'
+
+export interface ProfileTypes {
+  avatar_url: string
+  bio: string
+  id: number
+  followers: number
+  name: string
+  login: string
+  company: string
+  html_url: string
+}
 
 export function Profile() {
-  const { profile } = useContext(BlogContext)
+  const [profile, setProfile] = useState<ProfileTypes[]>([])
+  const userProfile = 'manoguii'
+
+  async function fetchProfile() {
+    const user = await api.get(`/users/${userProfile}`).then((response) => {
+      return response.data
+    })
+
+    setProfile([user])
+  }
+
+  useEffect(() => {
+    fetchProfile()
+  }, [])
 
   return (
     <>

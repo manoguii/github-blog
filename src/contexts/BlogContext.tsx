@@ -12,17 +12,6 @@ interface ContextProp {
   children: ReactNode
 }
 
-export interface ProfileTypes {
-  avatar_url: string
-  bio: string
-  id: number
-  followers: number
-  name: string
-  login: string
-  company: string
-  html_url: string
-}
-
 export interface IssuesTypes {
   created_at: string
   id: number
@@ -39,7 +28,6 @@ export interface IssuesTypes {
 }
 
 interface ContextTypes {
-  profile: ProfileTypes[]
   issues: IssuesTypes[]
   searchIssue: (query: string) => Promise<void>
   formatterDate: (date: string) => string
@@ -52,7 +40,6 @@ const repoName = 'github-blog'
 
 export function BlogContextContainer({ children }: ContextProp) {
   const [issues, setIssues] = useState<IssuesTypes[]>([])
-  const [profile, setProfile] = useState<ProfileTypes[]>([])
 
   function formatterDate(date: string) {
     return moment(date).toNow(true)
@@ -75,23 +62,13 @@ export function BlogContextContainer({ children }: ContextProp) {
     setIssues(fetchIssues.data.items)
   }, [])
 
-  async function fetchProfile() {
-    const user = await api.get(`/users/${userProfile}`).then((response) => {
-      return response.data
-    })
-
-    setProfile([user])
-  }
-
   useEffect(() => {
-    fetchProfile()
     IssuesRepo()
   }, [IssuesRepo])
 
   return (
     <BlogContext.Provider
       value={{
-        profile,
         issues,
         searchIssue,
         formatterDate,
