@@ -10,11 +10,8 @@ export function Issue() {
   return (
     <>
       {issues.map((post) => {
-        const LIMIT = 185
-        const text = post.body
-        const aboveLimit = text.length > LIMIT
-        const dotsOrEmpty = aboveLimit ? ' ...' : ''
-        const content = text.substring(0, LIMIT) + dotsOrEmpty
+        const dotsOrEmpty = post.body.length > 185 ? ' ...' : ''
+        const content = post.body.substring(0, 185) + dotsOrEmpty
 
         return (
           <Container key={post.id}>

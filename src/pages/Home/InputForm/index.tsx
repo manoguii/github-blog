@@ -12,9 +12,8 @@ const searchForm = z.object({
 type SearchFormInput = z.infer<typeof searchForm>
 
 export function InputForm() {
-  const { issues } = useContext(BlogContext)
+  const { issues, searchIssue } = useContext(BlogContext)
 
-  const { searchIssue } = useContext(BlogContext)
   const { register, handleSubmit, watch } = useForm<SearchFormInput>({
     resolver: zodResolver(searchForm),
   })
